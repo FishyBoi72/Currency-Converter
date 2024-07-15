@@ -1,0 +1,64 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #3498db; /* Blue background */
+    color: #2980b9;
+}
+
+.head {
+    color: white;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-family: 'Arial', sans-serif; /* Professional font */
+}
+
+.converter {
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Adjust width as needed */
+}
+
+.converter label, .converter select, .converter input {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.converter button {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px; /* Adjust margin as needed */
+    cursor: pointer;
+    background-color: #2980b9; /* Darker blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.converter button:hover {
+    background-color: #3498db; /* Lighter blue on hover */
+}
+
+p {
+    margin-top: 20px;
+}
+
+#historical-rates-container {
+    margin-top: 20px;
+}
+
+#favorite-currency-pairs {
+    margin-top: 20px;
+}
