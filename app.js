@@ -9,13 +9,13 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Initialize Sequelize
+// Initializes Sequelize
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: 'Currency.db'
 });
 
-// Define the FavoritePair model
+// Defines the FavoritePair model
 const FavoritePair = sequelize.define('favoritePair', {
     baseCurrency: {
         type: Sequelize.STRING,
@@ -27,17 +27,17 @@ const FavoritePair = sequelize.define('favoritePair', {
     }
 });
 
-// Sync the database
+// Syncs the database
 sequelize.sync().then(() => {
     console.log('Database synced');
 });
 
-// Serve the index.html file at the root URL
+// Serves the index.html file at the root URL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Fetch all favorite currency pairs
+// Fetches all favorite currency pairs
 app.get('/favorites', async (req, res) => {
     try {
         const favoritePairs = await FavoritePair.findAll();
@@ -48,7 +48,7 @@ app.get('/favorites', async (req, res) => {
     }
 });
 
-// Save a new favorite currency pair
+// Saves a new favorite currency pair
 app.post('/favorites', async (req, res) => {
     const { baseCurrency, targetCurrency } = req.body;
     try {
@@ -60,7 +60,7 @@ app.post('/favorites', async (req, res) => {
     }
 });
 
-// Reset all favorite currency pairs
+// Resets all favorite currency pairs
 app.delete('/favorites/reset', async (req, res) => {
     try {
         await FavoritePair.destroy({ where: {} });
@@ -71,7 +71,7 @@ app.delete('/favorites/reset', async (req, res) => {
     }
 });
 
-// Start the server
+// Starts the server
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });

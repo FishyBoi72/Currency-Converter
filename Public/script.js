@@ -1,4 +1,6 @@
+// Wait for the DOM content to be fully loaded before executing the function
 document.addEventListener('DOMContentLoaded', function () {
+    // Get references to various DOM elements using their IDs
     const baseCurrencySelect = document.getElementById('base-currency');
     const targetCurrencySelect = document.getElementById('target-currency');
     const amountInput = document.getElementById('amount');
@@ -8,9 +10,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const saveFavoriteButton = document.getElementById('save-favorite');
     const resetFavoritesButton = document.getElementById('reset-favorites'); // Added reset button
     const favoriteCurrencyPairsContainer = document.getElementById('favorite-currency-pairs');
+    
+    // Define the API key and URL for the currency data API
     const apiKey = 'fca_live_8oD3tIT3PDuCRRzUAxixL3XSsL5K1vd8IbfyKGlm';
     const apiUrl = `https://api.freecurrencyapi.com/v1/latest?apikey=${apiKey}`;
 
+    // Function to fetch currency data from the API
     async function fetchCurrencies() {
         try {
             const response = await fetch(apiUrl);
@@ -27,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Function to populate a select element with currency options
     function populateCurrencySelect(selectElement, currencies) {
         currencies.forEach(currency => {
             const option = document.createElement('option');
@@ -36,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Function to convert currency based on user input
     async function convertCurrency() {
         const baseCurrency = baseCurrencySelect.value;
         const targetCurrency = targetCurrencySelect.value;
@@ -61,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Function to fetch historical exchange rates for a specific date
     async function fetchHistoricalRates() {
-        // Example of fetching historical rates for a specific date
         const baseCurrency = baseCurrencySelect.value;
         const targetCurrency = targetCurrencySelect.value;
         const date = '2023-01-01'; // Hardcoded date for demonstration
@@ -85,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Function to save a favorite currency pair
     async function saveFavoriteCurrencyPair() {
         const baseCurrency = baseCurrencySelect.value;
         const targetCurrency = targetCurrencySelect.value;
@@ -108,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Function to reset favorite currency pairs
     async function resetFavoriteCurrencyPairs() {
         try {
             const response = await fetch('/favorites/reset', {
@@ -124,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Function to display a favorite currency pair as a button
     function displayFavoriteCurrencyPair(favoritePair) {
         const button = document.createElement('button');
         button.textContent = `${favoritePair.baseCurrency}/${favoritePair.targetCurrency}`;
@@ -135,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
         favoriteCurrencyPairsContainer.appendChild(button);
     }
 
+    // Function to load favorite currency pairs from the server
     function loadFavoriteCurrencyPairs() {
         fetch('/favorites')
             .then(response => response.json())
@@ -146,8 +157,11 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Fetch the list of available currencies when the page loads
     fetchCurrencies();
+    // Load the favorite currency pairs when the page loads
     loadFavoriteCurrencyPairs();
+    // Add event listeners for input changes and button clicks
     amountInput.addEventListener('input', convertCurrency);
     baseCurrencySelect.addEventListener('change', convertCurrency);
     targetCurrencySelect.addEventListener('change', convertCurrency);
